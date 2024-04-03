@@ -1,3 +1,5 @@
+import 'package:doctor_hunt/screens/favorite_doctor.dart';
+import 'package:doctor_hunt/screens/home.dart';
 import 'package:doctor_hunt/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,8 +15,7 @@ class BottomNavbar extends StatelessWidget {
       child: Container(
           height: 74,
           width: MediaQuery.of(context).size.width,
-          padding:
-                const EdgeInsets.symmetric(horizontal: 44.0),
+          padding: const EdgeInsets.symmetric(horizontal: 44.0),
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius:
@@ -29,34 +30,69 @@ class BottomNavbar extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                bottomNavbarIcon(0, 'assets/icons/home.svg'),
-                bottomNavbarIcon(1, 'assets/icons/favorite.svg'),
-                bottomNavbarIcon(2, 'assets/icons/book.svg'),
-                bottomNavbarIcon(3, 'assets/icons/chat.svg'),
+                _bottomNavbarIcon(
+                  index: 0,
+                  icon: 'assets/icons/home.svg',
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                      (route) => false,
+                    );
+                  },
+                ),
+                _bottomNavbarIcon(
+                  index: 1,
+                  icon: 'assets/icons/favorite.svg',
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FavoriteDoctorPage()),
+                      (route) => false,
+                    );
+                  },
+                ),
+                _bottomNavbarIcon(
+                  index: 2,
+                  icon: 'assets/icons/book.svg',
+                  onTap: () {},
+                ),
+                _bottomNavbarIcon(
+                  index: 3,
+                  icon: 'assets/icons/chat.svg',
+                  onTap: () {},
+                ),
               ],
             ),
           )),
     );
   }
 
-  Widget bottomNavbarIcon(int index, String icon) {
+  Widget _bottomNavbarIcon(
+      {required int index, required String icon, required Function() onTap}) {
     return Container(
       width: 48,
       height: 48,
       decoration: BoxDecoration(
         color: index == currentIndex ? green : Colors.transparent,
-        borderRadius: BorderRadius.circular(48.0),
+        borderRadius: BorderRadius.circular(24.0),
       ),
-      child: Center(
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(24.0),
+        child: Center(
           child: SvgPicture.asset(
-        icon,
-        height: 20,
-        fit: BoxFit.contain,
-        colorFilter: ColorFilter.mode(
-          index == currentIndex ? Colors.white : coolGray,
-          BlendMode.srcIn,
+            icon,
+            height: 20,
+            fit: BoxFit.contain,
+            colorFilter: ColorFilter.mode(
+              index == currentIndex ? Colors.white : coolGray,
+              BlendMode.srcIn,
+            ),
+          ),
         ),
-      )),
+      ),
     );
   }
 }

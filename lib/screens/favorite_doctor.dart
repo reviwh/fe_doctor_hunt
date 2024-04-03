@@ -5,10 +5,13 @@ import 'package:doctor_hunt/components/doctor_card.dart';
 import 'package:doctor_hunt/components/feature_card.dart';
 import 'package:doctor_hunt/components/search_field.dart';
 import 'package:doctor_hunt/components/section_header.dart';
+import 'package:doctor_hunt/screens/doctor.dart';
+import 'package:doctor_hunt/screens/doctor_details.dart';
+import 'package:doctor_hunt/screens/find_doctor.dart';
+import 'package:doctor_hunt/screens/home.dart';
 import 'package:doctor_hunt/themes/colors.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:doctor_hunt/utils/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class FavoriteDoctorPage extends StatefulWidget {
   const FavoriteDoctorPage({super.key});
@@ -21,64 +24,6 @@ class _FavoriteDoctorPageState extends State<FavoriteDoctorPage> {
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
-
-    List<Map<String, dynamic>> doctors = [
-      {
-        "images": "assets/images/doc-4.jpg",
-        "name": "Dr. Shouey",
-        "speciality": "Specalist Cardiology",
-        "isFavourite": false,
-      },
-      {
-        "images": "assets/images/doc-3.jpg",
-        "name": "Dr. Christenfeld N",
-        "speciality": "Specalist Cancer",
-        "isFavourite": true,
-      },
-      {
-        "images": "assets/images/doc-2.jpg",
-        "name": "Dr. Shouey",
-        "speciality": "Specalist Medicine",
-        "isFavourite": true,
-      },
-      {
-        "images": "assets/images/doc-1.jpg",
-        "name": "Dr. Shouey",
-        "speciality": "Specalist Dentist",
-        "isFavourite": false,
-      },
-    ];
-
-    List<Map<String, dynamic>> featuredDoctors = [
-      {
-        "images": "assets/images/doc-4.jpg",
-        "name": "Dr. Crick",
-        "rating": 3.7,
-        "price": 25.00,
-        "isFavorited": false,
-      },
-      {
-        "images": "assets/images/doc-5.jpg",
-        "name": "Dr. Strain",
-        "rating": 3.0,
-        "price": 22.00,
-        "isFavorited": true,
-      },
-      {
-        "images": "assets/images/doc-6.jpg",
-        "name": "Dr. Lachinet",
-        "rating": 2.9,
-        "price": 29.00,
-        "isFavorited": false,
-      },
-      {
-        "images": "assets/images/doc-4.jpg",
-        "name": "Dr. Crick",
-        "rating": 3.0,
-        "price": 25.00,
-        "isFavorited": true,
-      },
-    ];
 
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -95,9 +40,17 @@ class _FavoriteDoctorPageState extends State<FavoriteDoctorPage> {
           SafeArea(
               child: Column(
             children: [
-              const CustomAppBar(
-                prefix: CustomBackButton(),
-                title: Text(
+              CustomAppBar(
+                prefix: CustomBackButton(
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                      (route) => false,
+                    );
+                  },
+                ),
+                title: const Text(
                   "Favourite Doctors",
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
@@ -111,36 +64,54 @@ class _FavoriteDoctorPageState extends State<FavoriteDoctorPage> {
               SearchField(
                 hint: "Dentist",
                 controller: searchController,
-                onSubmit: () {},
+                onSubmit: (value) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FindDoctorPage()));
+                },
               ),
               Expanded(
                 child: ListView(
                   children: [
-                    SizedBox(
-                      height: 229 * 2 + 25,
-                      child: GridView.builder(
-                        padding: const EdgeInsets.all(20),
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 4,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 16,
-                          crossAxisSpacing: 16,
-                          mainAxisExtent: 212,
-                        ),
-                        itemBuilder: (context, index) {
-                          return DoctorCard(
-                            image: doctors[index]['images'],
-                            name: doctors[index]['name'],
-                            speciality: doctors[index]['speciality'],
-                            isFavorited: doctors[index]['isFavourite'],
-                          );
-                        },
+                    GridView.builder(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(20),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: 4,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 16,
+                        mainAxisExtent: 212,
                       ),
+                      itemBuilder: (context, index) {
+                        return DoctorCard(
+                          image: doctorsInGrid[index]['images'],
+                          name: doctorsInGrid[index]['name'],
+                          speciality: doctorsInGrid[index]['speciality'],
+                          isFavorited: doctorsInGrid[index]['isFavourite'],
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const DoctorDetailPage()));
+                          },
+                        );
+                      },
                     ),
                     const SizedBox(height: 8),
-                    const SectionHeader(title: "Feature Doctor"),
+                    SectionHeader(
+                      title: "Feature Doctor",
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const DoctorPage()));
+                      },
+                    ),
                     SizedBox(
                       height: 185,
                       child: ListView.separated(
@@ -154,6 +125,13 @@ class _FavoriteDoctorPageState extends State<FavoriteDoctorPage> {
                             rating: featuredDoctors[index]['rating'],
                             price: featuredDoctors[index]['price'],
                             isFavorited: featuredDoctors[index]['isFavorited'],
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const DoctorDetailPage()));
+                            },
                           );
                         },
                         separatorBuilder: (context, index) =>

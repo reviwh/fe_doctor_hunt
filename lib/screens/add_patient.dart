@@ -3,9 +3,8 @@ import 'package:doctor_hunt/components/back_button.dart';
 import 'package:doctor_hunt/components/primary_button.dart';
 import 'package:doctor_hunt/components/form_field.dart';
 import 'package:doctor_hunt/themes/colors.dart';
+import 'package:doctor_hunt/utils/constant.dart';
 import 'package:flutter/material.dart';
-
-enum Gender { male, female, others }
 
 class AddPatientPage extends StatefulWidget {
   const AddPatientPage({super.key});
@@ -15,21 +14,7 @@ class AddPatientPage extends StatefulWidget {
 }
 
 class _AddPatientPageState extends State<AddPatientPage> {
-  List<int> days = [], years = [];
-  List<String> months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-  ];
+  List<int> days = getDays(), years = getYears();
 
   Gender? selectedGender = Gender.male;
 
@@ -37,14 +22,6 @@ class _AddPatientPageState extends State<AddPatientPage> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-
-    for (int i = 1; i <= 31; i++) {
-      days.add(i);
-    }
-
-    for (int i = 1900; i <= 2024; i++) {
-      years.add(i);
-    }
 
     return Scaffold(
       body: Stack(

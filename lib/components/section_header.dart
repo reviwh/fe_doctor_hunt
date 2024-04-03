@@ -1,15 +1,19 @@
 import 'package:doctor_hunt/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
   final bool isMore;
+  final Function()? onTap;
+  
   const SectionHeader({
     super.key,
     this.title = "",
     this.isMore = true,
+    this.onTap,
   });
 
   @override
@@ -31,13 +35,16 @@ class SectionHeader extends StatelessWidget {
           ),
           if (isMore)
             Row(children: [
-              Text(
-                "See all",
-                style: GoogleFonts.rubik(
-                  fontWeight: FontWeight.w300,
-                  fontSize: 10,
-                  letterSpacing: -0.3,
-                  color: slateGray,
+              GestureDetector(
+                onTap: onTap,
+                child: Text(
+                  "See all",
+                  style: GoogleFonts.rubik(
+                    fontWeight: FontWeight.w300,
+                    fontSize: 10,
+                    letterSpacing: -0.3,
+                    color: slateGray,
+                  ),
                 ),
               ),
               const SizedBox(width: 2.54),

@@ -69,7 +69,7 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 52, vertical: 20),
                       child: CustomPrimaryButton(
                         text: "Add Tests",
                         onTap: () {

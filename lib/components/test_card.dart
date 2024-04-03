@@ -1,8 +1,6 @@
 import 'package:doctor_hunt/components/primary_button.dart';
 import 'package:doctor_hunt/themes/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class TestCard extends StatelessWidget {
   final String title;
@@ -13,6 +11,7 @@ class TestCard extends StatelessWidget {
   final int discountPrice;
   final int discount;
   final String additional;
+  final Function() onTap;
 
   const TestCard({
     super.key,
@@ -24,6 +23,7 @@ class TestCard extends StatelessWidget {
     this.discountPrice = 0,
     this.discount = 0,
     this.additional = "",
+    required this.onTap,
   });
 
   @override
@@ -152,7 +152,7 @@ class TestCard extends StatelessWidget {
                         text: "Book Now",
                         fontSize: 12,
                         padding: const EdgeInsets.symmetric(vertical: 9),
-                        onTap: () {},
+                        onTap: onTap,
                       ),
                     )
                   ],

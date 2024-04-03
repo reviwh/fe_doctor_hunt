@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class SearchField extends StatelessWidget {
   final String hint;
   final TextEditingController controller;
-  final Function() onSubmit;
+  final Function(String) onSubmit;
   const SearchField({
     super.key,
     this.hint = "Search",
@@ -15,10 +15,17 @@ class SearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(.08),
+          blurRadius: 40,
+        )
+      ]),
       child: TextField(
           controller: controller,
+          onSubmitted: onSubmit,
           style: const TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 15,

@@ -3,9 +3,7 @@ import 'package:doctor_hunt/components/back_button.dart';
 import 'package:doctor_hunt/components/primary_button.dart';
 import 'package:doctor_hunt/screens/diagnostic_book.dart';
 import 'package:doctor_hunt/themes/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class DiagnosticTestPage extends StatefulWidget {
   const DiagnosticTestPage({super.key});

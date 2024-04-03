@@ -36,15 +36,130 @@ class CustomFormField extends StatelessWidget {
 }
 
 class CustomTextField extends StatelessWidget {
+  final FontWeight fontWeight;
+  final double fontSize;
+  final Color textColor;
+  final TextAlign textAlign;
   final String hintText;
+  final double borderRadius;
+  final double borderWidth;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final int? maxLength;
+  final Widget? suffix;
   const CustomTextField({
     super.key,
+    this.fontWeight = FontWeight.w300,
+    this.fontSize = 16,
+    this.textColor = slateGray,
+    this.textAlign = TextAlign.start,
     this.hintText = "",
+    this.borderRadius = 12,
+    this.borderWidth = 1,
+    this.controller,
+    this.validator,
+    this.keyboardType,
+    this.maxLength,
+    this.suffix,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      controller: controller,
+      validator: validator,
+      keyboardType: keyboardType,
+      maxLength: maxLength,
+      textAlign: textAlign,
+      style: TextStyle(
+        fontWeight: fontWeight,
+        fontSize: fontSize,
+        letterSpacing: -.3,
+        color: textColor,
+      ),
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(
+          fontWeight: FontWeight.w300,
+          fontSize: fontSize,
+          letterSpacing: -.3,
+          color: textColor,
+        ),
+        counterText: "",
+        filled: true,
+        fillColor: Colors.white,
+        suffixIcon: suffix,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+          borderSide: BorderSide(
+            width: borderWidth,
+            color: slateGray.withOpacity(.16),
+            strokeAlign: BorderSide.strokeAlignInside,
+          ),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+          borderSide: BorderSide(
+            width: borderWidth,
+            color: slateGray.withOpacity(.16),
+            strokeAlign: BorderSide.strokeAlignInside,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+          borderSide: BorderSide(
+            width: borderWidth,
+            color: slateGray.withOpacity(.16),
+            strokeAlign: BorderSide.strokeAlignInside,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+          borderSide: BorderSide(
+            width: borderWidth,
+            color: slateGray.withOpacity(.16),
+            strokeAlign: BorderSide.strokeAlignInside,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+          borderSide: BorderSide(
+            width: borderWidth,
+            color: red,
+            strokeAlign: BorderSide.strokeAlignInside,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomPasswordField extends StatelessWidget {
+  final String hintText;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final bool isVisible;
+  final Function()? togglePassword;
+
+  const CustomPasswordField({
+    super.key,
+    this.hintText = "",
+    this.controller,
+    this.validator,
+    this.keyboardType,
+    this.isVisible = false,
+    this.togglePassword,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      validator: validator,
+      obscureText: !isVisible,
+      keyboardType: keyboardType,
       style: const TextStyle(
         fontWeight: FontWeight.w300,
         fontSize: 16,
@@ -61,6 +176,19 @@ class CustomTextField extends StatelessWidget {
         ),
         filled: true,
         fillColor: Colors.white,
+        suffixIcon: Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: IconButton(
+            onPressed: togglePassword,
+            icon: Icon(
+              isVisible
+                  ? Icons.visibility_off_rounded
+                  : Icons.visibility_rounded,
+              size: 18,
+              color: slateGray,
+            ),
+          ),
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(

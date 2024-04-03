@@ -1,10 +1,9 @@
 import 'package:doctor_hunt/components/app_bar.dart';
 import 'package:doctor_hunt/components/back_button.dart';
 import 'package:doctor_hunt/components/primary_button.dart';
+import 'package:doctor_hunt/screens/add_record.dart';
 import 'package:doctor_hunt/themes/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MedicalRecordPage extends StatefulWidget {
@@ -80,7 +79,8 @@ class _MedicalRecordPageState extends State<MedicalRecordPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 52, vertical: 20),
                       child: CustomPrimaryButton(
                         text: "Add a record",
                         onTap: () {
@@ -156,6 +156,13 @@ class _MedicalRecordPageState extends State<MedicalRecordPage> {
                     color: slateGray,
                   ),
                 ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddRecordPage()),
+                  );
+                },
               ),
               ListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -176,6 +183,13 @@ class _MedicalRecordPageState extends State<MedicalRecordPage> {
                     color: slateGray,
                   ),
                 ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddRecordPage()),
+                  );
+                },
               ),
               ListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -196,6 +210,13 @@ class _MedicalRecordPageState extends State<MedicalRecordPage> {
                     color: slateGray,
                   ),
                 ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddRecordPage()),
+                  );
+                },
               ),
             ],
           ),

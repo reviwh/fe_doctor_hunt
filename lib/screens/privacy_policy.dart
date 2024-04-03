@@ -1,9 +1,7 @@
 import 'package:doctor_hunt/components/app_bar.dart';
 import 'package:doctor_hunt/components/back_button.dart';
 import 'package:doctor_hunt/themes/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class PrivacyPolicyPage extends StatefulWidget {
   const PrivacyPolicyPage({super.key});

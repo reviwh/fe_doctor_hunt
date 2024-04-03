@@ -1,5 +1,4 @@
 import 'package:doctor_hunt/themes/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -8,6 +7,7 @@ class DoctorCard extends StatelessWidget {
   final String name;
   final String speciality;
   final bool isFavorited;
+  final Function()? onTap;
 
   const DoctorCard({
     super.key,
@@ -15,6 +15,7 @@ class DoctorCard extends StatelessWidget {
     required this.name,
     required this.speciality,
     this.isFavorited = false,
+    this.onTap,
   });
 
   @override
@@ -28,82 +29,85 @@ class DoctorCard extends StatelessWidget {
           blurRadius: 20,
         )
       ]),
-      child: Card(
-        semanticContainer: true,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        elevation: 2,
-        color: Colors.white,
-        surfaceTintColor: Colors.white,
-        shadowColor: Colors.transparent,
-        borderOnForeground: false,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6.0),
-          side: BorderSide.none,
-        ),
-        child: Stack(
-          children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 84,
-                      height: 84,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: AssetImage(image),
-                          fit: BoxFit.cover,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Card(
+          semanticContainer: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          elevation: 2,
+          color: Colors.white,
+          surfaceTintColor: Colors.white,
+          shadowColor: Colors.transparent,
+          borderOnForeground: false,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(6.0),
+            side: BorderSide.none,
+          ),
+          child: Stack(
+            children: [
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 84,
+                        height: 84,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: AssetImage(image),
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 11),
-                    Text(
-                      name,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 15,
-                        letterSpacing: -0.3,
-                        color: darkCharcoal,
+                      const SizedBox(height: 11),
+                      Text(
+                        name,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 15,
+                          letterSpacing: -0.3,
+                          color: darkCharcoal,
+                        ),
                       ),
-                    ),
-                    Text(
-                      speciality,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                        letterSpacing: -0.3,
-                        color: green,
+                      Text(
+                        speciality,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12,
+                          letterSpacing: -0.3,
+                          color: green,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Positioned(
-              top: 10,
-              right: 10,
-              child: isFavorited
-                  ? SvgPicture.asset(
-                      'assets/icons/favorite.svg',
-                      width: 19,
-                      height: 17,
-                      colorFilter: const ColorFilter.mode(red, BlendMode.srcIn),
-                    )
-                  : SvgPicture.asset(
-                      'assets/icons/favorite_border_thin.svg',
-                      width: 19,
-                      height: 17,
-                      colorFilter:
-                          const ColorFilter.mode(silver, BlendMode.srcIn),
-                    ),
-            ),
-          ],
+              Positioned(
+                top: 10,
+                right: 10,
+                child: isFavorited
+                    ? SvgPicture.asset(
+                        'assets/icons/favorite.svg',
+                        width: 19,
+                        height: 17,
+                        colorFilter: const ColorFilter.mode(red, BlendMode.srcIn),
+                      )
+                    : SvgPicture.asset(
+                        'assets/icons/favorite_border_thin.svg',
+                        width: 19,
+                        height: 17,
+                        colorFilter:
+                            const ColorFilter.mode(silver, BlendMode.srcIn),
+                      ),
+              ),
+            ],
+          ),
         ),
       ),
     );

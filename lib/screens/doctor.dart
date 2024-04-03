@@ -3,8 +3,9 @@ import 'package:doctor_hunt/components/back_button.dart';
 import 'package:doctor_hunt/components/bottom_navbar.dart';
 import 'package:doctor_hunt/components/category_card.dart';
 import 'package:doctor_hunt/components/search_field.dart';
+import 'package:doctor_hunt/screens/doctor_details.dart';
 import 'package:doctor_hunt/themes/colors.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:doctor_hunt/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 class DoctorPage extends StatefulWidget {
@@ -18,57 +19,6 @@ class _DoctorPageState extends State<DoctorPage> {
   TextEditingController searchController = TextEditingController();
 
   int selectedTab = 0;
-
-  List<Map<String, dynamic>> doctors = [
-    {
-      "images": "assets/images/doc-6.jpg",
-      "name": "Dr. Pediatrician",
-      "speciality": "Specialist Cardiologist",
-      "rating": 2.8,
-      "views": 2821,
-      "isFavorited": true,
-    },
-    {
-      "images": "assets/images/doc-5.jpg",
-      "name": "Dr. Mistry Brick",
-      "speciality": "Specialist Dentist",
-      "rating": 2.8,
-      "views": 2821,
-      "isFavorited": true,
-    },
-    {
-      "images": "assets/images/doc-4.jpg",
-      "name": "Dr. Ether Wall",
-      "speciality": "Specialist Cancer",
-      "rating": 2.8,
-      "views": 2821,
-      "isFavorited": true,
-    },
-    {
-      "images": "assets/images/doc-8.jpg",
-      "name": "Dr. Johan Smith",
-      "speciality": "Specialist Cardiologist",
-      "rating": 2.8,
-      "views": 2821,
-      "isFavorited": true,
-    },
-    {
-      "images": "assets/images/doc-8.jpg",
-      "name": "Dr. Johan Smith",
-      "speciality": "Specialist Cardiologist",
-      "rating": 2.8,
-      "views": 2821,
-      "isFavorited": true,
-    },
-    {
-      "images": "assets/images/doc-4.jpg",
-      "name": "Dr. Ether Wall",
-      "speciality": "Specialist Cancer",
-      "rating": 2.8,
-      "views": 2821,
-      "isFavorited": true,
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +50,7 @@ class _DoctorPageState extends State<DoctorPage> {
                 ),
               ),
               const SizedBox(height: 30),
-              SearchField(controller: searchController, onSubmit: () {}),
+              SearchField(controller: searchController, onSubmit: (value) {}),
               SizedBox(
                 height: 76,
                 child: ListView(
@@ -171,6 +121,13 @@ class _DoctorPageState extends State<DoctorPage> {
                         rating: doctors[index]['rating'],
                         views: doctors[index]['views'],
                         isFavorited: doctors[index]['isFavorited'],
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DoctorDetailPage(),
+                              ));
+                        },
                       );
                     },
                     separatorBuilder: (context, index) =>

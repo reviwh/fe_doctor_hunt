@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomBackButton extends StatelessWidget {
-  const CustomBackButton({super.key});
+  final Function()? onTap;
+  const CustomBackButton({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +19,10 @@ class CustomBackButton extends StatelessWidget {
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(10.0),
         child: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
+          onTap: onTap ??
+              () {
+                Navigator.pop(context);
+              },
           borderRadius: BorderRadius.circular(10.0),
           child: Center(
               child: SvgPicture.asset(
